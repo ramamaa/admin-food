@@ -66,7 +66,9 @@ export const AddNewDish = () => {
               </DialogContent>
             </form>
           </Dialog>
-          <div>Add new Dish </div>
+          <div className="font-medium text-secondary-foreground text-sm leading-5">
+            Add new Dish to Appetizers
+          </div>
         </div>
       </div>
     </div>

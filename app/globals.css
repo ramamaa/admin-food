@@ -111,6 +111,22 @@
   --sidebar-border: oklch(1 0 0 / 10%);
   --sidebar-ring: oklch(0.556 0 0);
 }
+@layer utilities {
+  .border-dash-red {
+    border-style: dashed;
+    border-width: 1px;
+    border-radius: 20px;
+    border-color: #ef4444;
+    border-image: repeating-linear-gradient(
+        to right,
+        #ef4444 0,
+        #ef4444 6px,
+        transparent 6px,
+        transparent 12px
+      )
+      1;
+  }
+}
 
 @layer base {
   * {

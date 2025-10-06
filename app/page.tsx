@@ -1,14 +1,12 @@
-import { AddNewDish } from "@/components/main/AddNewDish";
+import { AddNewDishContainer } from "@/components/main/AddNewDishContainer";
 import { AdminLayout } from "./_components/AdminLayout";
 
 export default function Home() {
   return (
     <div>
       <AdminLayout>
-        <h1>Header</h1>{" "}
+        <AddNewDishContainer />
       </AdminLayout>
-
-      <AddNewDish></AddNewDish>
     </div>
   );
 }

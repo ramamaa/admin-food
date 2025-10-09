@@ -4,9 +4,7 @@ import { AdminLayout } from "./_components/AdminLayout";
 export default function Home() {
   return (
     <div>
-      <AdminLayout>
-        <AddNewDishContainer />
-      </AdminLayout>
+      <AdminLayout>{""}</AdminLayout>
     </div>
   );
 }

@@ -1,12 +1,13 @@
 import { AddDishesCategoryContainer } from "@/components/main/AddDishesCategoryContainer";
 import { AdminLayout } from "../_components/AdminLayout";
-import { AddNewDishContainer } from "@/components/main/AddNewDishContainer";
+
+import { AddNewDish } from "@/components/main/AddNewDish";
 
 const ProductsPage = () => {
   return (
     <AdminLayout>
       <AddDishesCategoryContainer />
-      <AddNewDishContainer />
+      <AddNewDish />
     </AdminLayout>
   );
 };

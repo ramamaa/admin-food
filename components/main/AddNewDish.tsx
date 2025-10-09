@@ -10,7 +10,8 @@ import {
 } from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { ChangeEvent, useState } from "react";
+import { FoodsMenuData } from "@/utils/get-data";
+import { ChangeEvent, useEffect, useState } from "react";
 export const AddNewDish = () => {
   const [image, setImage] = useState<File | undefined>();
   const [name, setName] = useState<string>("");
@@ -72,15 +73,15 @@ export const AddNewDish = () => {
   };
 
   return (
-    <div>
+    <div className="p-5 mt-6 ml-6 mr-10 bg-background flex gap-4 flex-col">
+      {/* {FoodsMenuData.} */}
       <div className="w-70 h-60 border-dashed border rounded-2xl border-red-500 flex items-center justify-center py-2 px-4">
         <div className="flex flex-col gap-6 justify-center items-center">
           <Dialog>
             <DialogTrigger asChild>
               <Button
                 variant="outline"
-                className="rounded-full bg-red-500 text-white"
-              >
+                className="rounded-full bg-red-500 text-white w-10 h-10">
                 +
               </Button>
             </DialogTrigger>
@@ -138,8 +139,7 @@ export const AddNewDish = () => {
                   type="submit"
                   size={"sm"}
                   className="w-fit px-4 py-[10px]"
-                  onClick={addFoodHandler}
-                >
+                  onClick={addFoodHandler}>
                   <p className="leading-5"> Save changes</p>
                 </Button>
               </div>

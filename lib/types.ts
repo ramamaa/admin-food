@@ -6,3 +6,7 @@ type foodsTypeProps = {
   category: string;
   image: string;
 };
+type categoriesTypeProps = {
+  _id: string;
+  name: string;
+};

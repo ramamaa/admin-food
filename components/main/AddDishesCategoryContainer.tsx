@@ -14,7 +14,7 @@ import { Input } from "@/components/ui/input";
 import { X } from "lucide-react";
 
 export const AddDishesCategoryContainer = () => {
-  const [categories, setCategories] = useState<string[]>([]);
+  const [categories, setCategories] = useState<categoriesTypeProps[]>([]);
   const [newCategory, setNewCategory] = useState<string | undefined>();
   const [modalOpen, setModalOpen] = useState<boolean>(false);
 
@@ -37,7 +37,6 @@ export const AddDishesCategoryContainer = () => {
   const createCategoryHandler = async () => {
     await fetch("http://localhost:4000/api/categories", {
       method: "POST",
-      mode: "no-cors",
       headers: {
         "Content-Type": "application/json",
       },
@@ -49,32 +48,35 @@ export const AddDishesCategoryContainer = () => {
     await getCategories();
   };
 
-  const deleteCategoryHandler = async (category: string) => {
+  const deleteCategoryHandler = async (id: string) => {
     await fetch("http://localhost:4000/api/categories/delete", {
-      method: "POST",
-      mode: "no-cors",
+      method: "DELETE",
       headers: {
         "Content-type": "application/json",
       },
-      body: JSON.stringify(category),
+      body: JSON.stringify({ id }),
     });
+    await getCategories();
   };
   return (
-    <div className="bg-white m-6 mr-10 p-6">
+    <div className="bg-white m-6 mr-10 p-6 flex flex-col gap-4">
+      <h4 className="font-semibold text-xl leading -7 text-foreground">
+        DIshes category
+      </h4>
       <div className="flex flex-wrap gap-2">
         {categories.map((category) => (
           <Badge
             variant="outline"
             className="flex items-center border-1 rounded-full px-4 py-2 h-9 w-fit gap-2 "
-            key={category}
-          >
+            key={category._id}>
             <p className=" text-secondary-foreground leading-5 font-medium text-sm ">
-              {category}
+              {category.name}
             </p>
-            <X
-              className="hover:bg-gray-400/20 w-4"
-              onClick={() => deleteCategoryHandler(category)}
-            />
+            <button
+              className="hover:bg-gray-400/20 w-4 bg-primary px-2.5 py-0.5 text-primary-foreground flex items-center justify-center rounded-full"
+              onClick={() => deleteCategoryHandler(category._id)}>
+              X
+            </button>
           </Badge>
         ))}
         <Dialog open={modalOpen}>
@@ -82,8 +84,7 @@ export const AddDishesCategoryContainer = () => {
             <Badge
               onClick={() => setModalOpen(true)}
               variant={"outline"}
-              className="cursor-pointer hover:bg-gray-500/20 text-white bg-red-500 rounded-full w-9 h-9"
-            >
+              className="cursor-pointer hover:bg-gray-500/20 text-white bg-red-500 rounded-full w-9 h-9">
               +
             </Badge>
           </DialogTrigger>

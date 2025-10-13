@@ -1,10 +1,10 @@
 type foodsTypeProps = {
-  id: number;
-  name: string;
-  price: number;
-  ingredients: string | string[];
-  category: string;
   image: string;
+  _id: number;
+  price: number;
+  ingredients: string;
+  category: string;
+  name: string;
 };
 type categoriesTypeProps = {
   _id: string;

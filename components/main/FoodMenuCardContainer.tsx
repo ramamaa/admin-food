@@ -1,0 +1,50 @@
+import React, { useEffect, useState } from "react";
+import FoodMenuCard from "./FoodMenuCard";
+type FoodMenuCardProps = {
+  image: string;
+  _id: number;
+  price: number;
+  ingredients: string;
+  category: string;
+  name: string;
+};
+
+type FoodMenuCardContainerProps = {
+  foods: FoodMenuCardProps[];
+};
+export const FoodMenuCardContainer = ({
+  foods,
+}: FoodMenuCardContainerProps) => {
+  const [foodMenu, setFoodMenu] = useState<FoodMenuCardProps[]>([]);
+  const [newFood, setNewFood] = useState<string | undefined>();
+
+  const getFoods = async () => {
+    const result = await fetch("http://localhost:4000/api/food");
+    const responseData = await result.json();
+    console.log({ responseData }, "Foods responseData");
+    const { data } = responseData;
+    console.log(data, "FOODS");
+    setFoodMenu(data);
+  };
+
+  useEffect(() => {
+    getFoods();
+  }, []);
+
+  return (
+    <div className="flex gap-4">
+      {foods.map((food) => (
+        <div key={food._id}>
+          <FoodMenuCard
+            _id={food._id}
+            name={food.name}
+            price={food.price}
+            category={food.category}
+            ingredients={food.ingredients}
+            image={food.image}
+          />
+        </div>
+      ))}
+    </div>
+  );
+};

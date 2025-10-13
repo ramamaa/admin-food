@@ -1,17 +1,30 @@
-import React from "react";
+"use client";
+import React, { useEffect, useState } from "react";
 
 type FoodMenuCardProps = {
   image: string;
-  id: number;
+  _id: number;
   price: number;
   ingredients: string;
+  category: string;
+  name: string;
 };
-const FoodMenuCard = ({ image, id, price, ingredients }: FoodMenuCardProps) => {
+const FoodMenuCard = ({
+  image,
+  _id,
+  price,
+  ingredients,
+  name,
+  category,
+}: FoodMenuCardProps) => {
   return (
-    <div className="w-67.5 rounded-3xl border-1 bg-white p-4" key={id}>
-      <img src={image} alt=""></img>
-      <p>{price}</p>
-      <p>{ingredients}</p>
+    <div className="w-67.5 rounded-3xl border-1 bg-white p-4">
+      <div>
+        <img src={image} alt="" className="w-full h-full rounded-xl p-5" />
+        <p className="text-red-500 leading-5 font-medium text-sm">{name}</p>
+        <p>{price}$</p>
+        <p>{ingredients}</p>
+      </div>
     </div>
   );
 };

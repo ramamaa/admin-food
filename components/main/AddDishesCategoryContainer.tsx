@@ -61,7 +61,7 @@ export const AddDishesCategoryContainer = () => {
   return (
     <div className="bg-white m-6 mr-10 p-6 flex flex-col gap-4">
       <h4 className="font-semibold text-xl leading -7 text-foreground">
-        DIshes category
+        Dishes category
       </h4>
       <div className="flex flex-wrap gap-2">
         {categories.map((category) => (

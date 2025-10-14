@@ -12,7 +12,6 @@ import { ChangeEvent, useEffect, useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 
-
 export const AddDishesCategoryContainer = () => {
   const [categories, setCategories] = useState<categoriesTypeProps[]>([]);
   const [newCategory, setNewCategory] = useState<string | undefined>();
@@ -67,7 +66,7 @@ export const AddDishesCategoryContainer = () => {
         {categories.map((category) => (
           <Badge
             variant="outline"
-            className="flex items-center border-1 rounded-full px-4 py-2 h-9 w-fit gap-2 "
+            className="flex items-center border-1 rounded-full px-4 py-2 h-9 w-fit gap-2 hover:border-red-500 "
             key={category._id}>
             <p className=" text-secondary-foreground leading-5 font-medium text-sm ">
               {category.name}

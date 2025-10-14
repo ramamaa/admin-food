@@ -16,7 +16,6 @@ export const FoodMenuCardContainer = ({
   foods,
 }: FoodMenuCardContainerProps) => {
   const [foodMenu, setFoodMenu] = useState<FoodMenuCardProps[]>([]);
-  const [newFood, setNewFood] = useState<string | undefined>();
 
   const getFoods = async () => {
     const result = await fetch("http://localhost:4000/api/food");
@@ -32,7 +31,7 @@ export const FoodMenuCardContainer = ({
   }, []);
 
   return (
-    <div className="flex gap-4">
+    <div className="flex gap-4 w-full">
       {foods.map((food) => (
         <div key={food._id}>
           <FoodMenuCard

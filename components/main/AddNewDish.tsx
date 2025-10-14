@@ -19,7 +19,7 @@ export const AddNewDish = () => {
   const [name, setName] = useState<string>("");
   const [price, setPrice] = useState<number>(0);
   const [ingredients, setIngredients] = useState<string>("");
-  const [category, setCategory] = useState<string>("");
+  // const [category, setCategory] = useState<string>("");
 
   const [foodsMenu, setFoodsMenu] = useState<foodsTypeProps[]>([]);
 
@@ -35,9 +35,9 @@ export const AddNewDish = () => {
   useEffect(() => {
     getFoodMenu();
   }, []);
-
+// || !category
   const addFoodHandler = async () => {
-    if (!name || !price || !image || !ingredients || !category) {
+    if (!name || !price || !image || !ingredients ) {
       alert("All fields are required");
       return;
     }
@@ -48,14 +48,14 @@ export const AddNewDish = () => {
     form.append("price", String(price));
     form.append("image", image); // File object
     form.append("ingredients", ingredients);
-    form.append("category", category);
+    // form.append("category", category);
 
     try {
       const response = await fetch("http://localhost:4000/api/food", {
         method: "POST",
         body: form,
       });
-
+        // setCategory("");
       const data = await response.json();
       if (response.ok) {
         alert("Food created successfully!");
@@ -63,7 +63,7 @@ export const AddNewDish = () => {
         setPrice(0);
         setImage(undefined);
         setIngredients("");
-        setCategory("");
+      
       } else {
         alert(data.error || "Failed to create food");
       }
@@ -85,9 +85,9 @@ export const AddNewDish = () => {
   const ingredientsChangeHandler = (e: ChangeEvent<HTMLInputElement>) => {
     setIngredients(e.target.value);
   };
-  const categoryChangeHandler = (e: ChangeEvent<HTMLInputElement>) => {
-    setCategory(e.target.value);
-  };
+  // const categoryChangeHandler = (e: ChangeEvent<HTMLInputElement>) => {
+  //   setCategory(e.target.value);
+  // };
 
   return (
     <div className="p-5 mt-6 ml-6 mr-10 bg-background flex gap-4 flex-col">
@@ -152,7 +152,7 @@ export const AddNewDish = () => {
                       onChange={ingredientsChangeHandler}
                     />
                   </div>
-                  <div className="grid gap-3">
+                  {/* <div className="grid gap-3">
                     <Label htmlFor="category">Category</Label>
                     <Input
                       id="category"
@@ -160,7 +160,7 @@ export const AddNewDish = () => {
                       value={category}
                       onChange={categoryChangeHandler}
                     />
-                  </div>
+                  </div> */}
                   <Button
                     type="submit"
                     size={"sm"}

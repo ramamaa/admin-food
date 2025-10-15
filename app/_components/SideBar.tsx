@@ -43,7 +43,7 @@ export const SideBar = () => {
         <Link href="orders">
           <Button
             variant="outline"
-            className="h-10 px-6 flex gap-2.5 justify-start self-stretch w-[100%]">
+            className="h-10 px-6 bg-background rounded-full flex gap-2.5 justify-start self-stretch w-[100%] ">
             <Truck />
             Orders
           </Button>

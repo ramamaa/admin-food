@@ -85,6 +85,7 @@ export const AddNewDish = () => {
     } catch (error) {
       alert("Failed to create food");
     }
+    await getFoodMenu();
   };
   const nameChangeHandler = (e: ChangeEvent<HTMLInputElement>) => {
     setName(e.target.value);

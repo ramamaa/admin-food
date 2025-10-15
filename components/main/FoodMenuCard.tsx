@@ -6,7 +6,7 @@ import { EditDishesDialog } from "./EditDishesDialog";
 
 type FoodMenuCardProps = {
   image: string;
-  _id: number;
+  _id: string;
   price: number;
   ingredients: string;
   category: string;
@@ -25,7 +25,7 @@ const FoodMenuCard = ({
       <div>
         <img src={image} alt="" className="w-full h-full rounded-xl p-5" />
         <div>
-          <EditDishesDialog />
+          <EditDishesDialog id={_id}/>
         </div>
         <p className="text-red-500 leading-5 font-medium text-sm">{name}</p>
         <p>{price}$</p>

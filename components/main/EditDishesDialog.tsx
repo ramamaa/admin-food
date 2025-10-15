@@ -16,25 +16,34 @@ import { Input } from "../ui/input";
 import {
   Select,
   SelectContent,
-  SelectGroup,
   SelectItem,
-  SelectLabel,
   SelectTrigger,
   SelectValue,
 } from "../ui/select";
-import { Sumana } from "next/font/google";
+type EditDishesProps ={
+  id: string
+}
 export type CategoryType = {
   name: string;
   _id: string;
 };
-export const EditDishesDialog = () => {
+export type FoodMenuType = {
+   image: string;
+  _id: string;
+  price: number;
+  ingredients: string;
+  category: string;
+  name: string;
+}
+export const EditDishesDialog = ({id}:EditDishesProps) => {
   const [image, setImage] = useState<File | undefined>();
   const [name, setName] = useState<string>("");
   const [price, setPrice] = useState<number>(0);
   const [ingredients, setIngredients] = useState<string>("");
   const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
   const [categories, setCategories] = useState<CategoryType[]>([]);
-
+  const [foodMenu, setFoodMenu] =useState<FoodMenuType[]>([])
+ 
   const getCategories = async () => {
     const response = await fetch("http://localhost:4000/api/categories");
     const data = await response.json();
@@ -45,14 +54,27 @@ export const EditDishesDialog = () => {
     getCategories();
   }, []);
 
-  const addFoodHandler = async () => {
+  const getFoodMenu = async () => {
+    const response = await fetch("http://localhost:4000/api/food");
+    const data = await response.json();
+    setFoodMenu(data.data);
+      console.log(data, "DATA of FOODMENU");
+  };
+
+  
+  useEffect(() => {
+    getFoodMenu();
+  }, []);
+
+
+  const addFoodHandler = async (id:string) => {
     if (!name || !price || !image || !ingredients || !selectedCategory) {
       alert("All fields are required");
       return;
     }
 
     const form = new FormData();
-
+    form.append("id", id);
     form.append("name", name);
     form.append("price", String(price));
     form.append("image", image); // File object
@@ -67,7 +89,7 @@ export const EditDishesDialog = () => {
 
       const data = await response.json();
       if (response.ok) {
-        alert("Food created successfully!");
+        alert("Food updated successfully!");
         setName("");
         setPrice(0);
         setImage(undefined);
@@ -76,9 +98,11 @@ export const EditDishesDialog = () => {
       } else {
         alert(data.error || "Failed to create food");
       }
+       await getFoodMenu();
     } catch (error) {
       alert("Failed to create food");
     }
+   
   };
   const nameChangeHandler = (e: ChangeEvent<HTMLInputElement>) => {
     setName(e.target.value);
@@ -95,6 +119,8 @@ export const EditDishesDialog = () => {
     setIngredients(e.target.value);
   };
 
+
+
   const deleteFoodHandler = async (id: string) => {
     await fetch("http://localhost:4000/api/food", {
       method: "DELETE",
@@ -103,14 +129,16 @@ export const EditDishesDialog = () => {
       },
       body: JSON.stringify({ id }),
     });
-    await getCategories();
+    await getFoodMenu();
   };
-  console.log(addFoodHandler, "add food handler");
+
 
   return (
     <div>
       <Dialog>
-        <DialogTrigger className="rounded-full border-1 w-11 h-11 flex justify-center items-center">
+        <DialogTrigger
+          className="rounded-full border-1 w-11 h-11 flex justify-center items-center"
+        >
           <Pen className="w-4 h-4" color="red" />
         </DialogTrigger>
         <DialogContent className="max-w-[472px] p-6 ">
@@ -184,11 +212,12 @@ export const EditDishesDialog = () => {
               type="submit"
               className="bg-white border-red-500 border-1 py-2 px-4"
               variant="outline"
-              onClick={() => deleteFoodHandler}>
+              onClick={() => deleteFoodHandler(id)} 
+            >
               <Trash color="red" />
             </Button>
 
-            <Button onClick={() => addFoodHandler} type="submit">
+            <Button onClick={() => addFoodHandler(id)} type="submit">
               Save changes
             </Button>
           </div>

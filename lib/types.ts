@@ -1,6 +1,6 @@
 type foodsTypeProps = {
   image: string;
-  _id: number;
+  _id: string;
   price: number;
   ingredients: string;
   category: string;

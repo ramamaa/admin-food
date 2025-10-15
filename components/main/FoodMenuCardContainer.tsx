@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import FoodMenuCard from "./FoodMenuCard";
 type FoodMenuCardProps = {
   image: string;
-  _id: number;
+  _id: string;
   price: number;
   ingredients: string;
   category: string;
@@ -31,9 +31,9 @@ export const FoodMenuCardContainer = ({
   }, []);
 
   return (
-    <div className="flex gap-4 w-full">
+    <div className="flex flex-wrap items-stretch gap-4 w-full">
       {foods.map((food) => (
-        <div key={food._id}>
+        <div key={food._id} className="self-stretch">
           <FoodMenuCard
             _id={food._id}
             name={food.name}

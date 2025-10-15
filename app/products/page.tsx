@@ -6,8 +6,10 @@ import { AddNewDish } from "@/components/main/AddNewDish";
 const ProductsPage = () => {
   return (
     <AdminLayout>
+      
       <AddDishesCategoryContainer />
       <AddNewDish />
+      
     </AdminLayout>
   );
 };

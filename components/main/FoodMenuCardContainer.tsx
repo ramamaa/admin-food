@@ -35,12 +35,7 @@ export const FoodMenuCardContainer = ({
       {foods.map((food) => (
         <div key={food._id} className="self-stretch">
           <FoodMenuCard
-            _id={food._id}
-            name={food.name}
-            price={food.price}
-            category={food.category}
-            ingredients={food.ingredients}
-            image={food.image}
+            food={food}
           />
         </div>
       ))}

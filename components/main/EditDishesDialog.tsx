@@ -67,7 +67,7 @@ export const EditDishesDialog = ({id}:EditDishesProps) => {
   }, []);
 
 
-  const addFoodHandler = async (id:string) => {
+  const editFoodHandler = async (id:string) => {
     if (!name || !price || !image || !ingredients || !selectedCategory) {
       alert("All fields are required");
       return;
@@ -217,7 +217,7 @@ export const EditDishesDialog = ({id}:EditDishesProps) => {
               <Trash color="red" />
             </Button>
 
-            <Button onClick={() => addFoodHandler(id)} type="submit">
+            <Button onClick={() => editFoodHandler(id)} type="submit">
               Save changes
             </Button>
           </div>

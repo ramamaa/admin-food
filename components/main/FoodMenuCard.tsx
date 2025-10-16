@@ -1,25 +1,19 @@
-"use client";
 
-import React, { useEffect, useState } from "react";
 
-import { EditDishesDialog } from "./EditDishesDialog";
+import { EditDishesDialog, FoodMenuType } from "./EditDishesDialog";
 
 type FoodMenuCardProps = {
-  image: string;
-  _id: string;
-  price: number;
-  ingredients: string;
-  category: string;
-  name: string;
+  food:FoodMenuType
 };
 const FoodMenuCard = ({
-  image,
+food
+}: FoodMenuCardProps) => {
+  const {  image,
   _id,
   price,
   ingredients,
   name,
-  category,
-}: FoodMenuCardProps) => {
+  category} = food
   return (
     <div className="w-67.5 rounded-3xl border-1 bg-white p-4 ">
       <div>

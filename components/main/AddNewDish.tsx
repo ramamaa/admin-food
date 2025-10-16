@@ -35,9 +35,6 @@ export const AddNewDish = () => {
     setCategories(data.data);
   };
 
-  useEffect(() => {
-    getCategories();
-  }, []);
   const getFoodMenu = async () => {
     const result = await fetch("http://localhost:4000/api/food");
     const responseData = await result.json();
@@ -48,9 +45,10 @@ export const AddNewDish = () => {
   };
 
   useEffect(() => {
+    getCategories();
     getFoodMenu();
   }, []);
-  // || !category
+
   const addFoodHandler = async () => {
     if (!name || !price || !image || !ingredients || !selectedCategory) {
       alert("All fields are required");

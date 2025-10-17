@@ -111,7 +111,7 @@ export const EditDishesDialog = ({
   return (
     <div>
       <Dialog>
-        <DialogTrigger className="rounded-full border-1 w-11 h-11 flex justify-center items-center">
+        <DialogTrigger className="rounded-full bg-white border-1 w-11 h-11 flex justify-center items-center cursor-pointer">
           <Pen className="w-4 h-4" color="red" />
         </DialogTrigger>
         <DialogContent className="max-w-[472px] p-6 ">
@@ -185,8 +185,7 @@ export const EditDishesDialog = ({
               type="submit"
               className="bg-white border-red-500 border-1 py-2 px-4"
               variant="outline"
-              onClick={() => deleteFoodHandler(id)}
-            >
+              onClick={() => deleteFoodHandler(id)}>
               <Trash color="red" />
             </Button>
 

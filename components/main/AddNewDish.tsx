@@ -83,76 +83,71 @@ export const AddNewDish = ({
         {category.name} {foods.length}
       </h2>
       <div className="flex gap-5">
-        <div className="w-70 h-60 border-dashed border rounded-2xl border-red-500 flex items-center justify-center py-2 px-4">
-          <div className="flex flex-col gap-6 justify-center items-center">
-            <Dialog>
-              <DialogTrigger asChild>
+        <Dialog>
+          <DialogTrigger asChild>
+            <div className=" w-70 h-60 border-dashed border rounded-2xl border-red-500 flex flex-col gap-6 items-center justify-center py-2 px-4 cursor-pointer">
+              <div className="flex flex-col gap-6 justify-center items-center">
                 <Button
                   variant="outline"
-                  className="rounded-full bg-red-500 text-white w-10 h-10"
-                >
+                  className="rounded-full bg-red-500 text-white w-10 h-10">
                   +
                 </Button>
-              </DialogTrigger>
-              <DialogContent className="sm:max-w-[425px]">
-                <DialogHeader>
-                  <DialogTitle>Create Food</DialogTitle>
-                </DialogHeader>
-                <div className="flex flex-col gap-4">
-                  <div className="grid gap-3">
-                    <Label htmlFor="name">Name</Label>
-                    <Input
-                      id="name"
-                      name="name"
-                      value={name}
-                      onChange={nameChangeHandler}
-                    />
-                  </div>
-                  <div className="grid gap-3">
-                    <Label htmlFor="price">Price</Label>
-                    <Input
-                      id="price"
-                      name="price"
-                      type="number"
-                      value={price}
-                      onChange={priceChangeHandler}
-                    />
-                  </div>
-                  <div className="grid w-full max-w-sm items-center gap-3">
-                    <Label htmlFor="picture">Picture</Label>
-                    <Input
-                      id="picture"
-                      type="file"
-                      onChange={fileChangeHandler}
-                    />
-                  </div>
-                  <div className="grid gap-3">
-                    <Label htmlFor="ingredients">Ingredients</Label>
-                    <Input
-                      id="ingredients"
-                      name="ingredients"
-                      value={ingredients}
-                      onChange={ingredientsChangeHandler}
-                    />
-                  </div>
-
-                  <Button
-                    type="submit"
-                    size={"sm"}
-                    className="w-fit px-4 py-[10px]"
-                    onClick={addFoodHandler}
-                  >
-                    <p className="leading-5"> Save changes</p>
-                  </Button>
-                </div>
-                <DialogFooter></DialogFooter>
-              </DialogContent>
-            </Dialog>
-            <div className="font-medium text-secondary-foreground text-sm leading-5">
-              Add new Dish to {category.name}
+              </div>
+              <div className="font-medium text-secondary-foreground text-sm leading-5">
+                Add new Dish to {category.name}
+              </div>
             </div>
-          </div>
-        </div>
+          </DialogTrigger>
+          <DialogContent className="sm:max-w-[425px]">
+            <DialogHeader>
+              <DialogTitle>Create Food</DialogTitle>
+            </DialogHeader>
+            <div className="flex flex-col gap-4">
+              <div className="grid gap-3">
+                <Label htmlFor="name">Name</Label>
+                <Input
+                  id="name"
+                  name="name"
+                  defaultValue={name}
+                  onChange={nameChangeHandler}
+                />
+              </div>
+              <div className="grid gap-3">
+                <Label htmlFor="price">Price</Label>
+                <Input
+                  id="price"
+                  name="price"
+                  type="number"
+                  defaultValue={price}
+                  onChange={priceChangeHandler}
+                />
+              </div>
+              <div className="grid w-full max-w-sm items-center gap-3">
+                <Label htmlFor="picture">Picture</Label>
+                <Input id="picture" type="file" onChange={fileChangeHandler} />
+              </div>
+              <div className="grid gap-3">
+                <Label htmlFor="ingredients">Ingredients</Label>
+                <Input
+                  id="ingredients"
+                  name="ingredients"
+                  defaultValue={ingredients}
+                  onChange={ingredientsChangeHandler}
+                />
+              </div>
+
+              <Button
+                type="submit"
+                size={"sm"}
+                className="w-fit px-4 py-[10px]"
+                onClick={addFoodHandler}>
+                <p className="leading-5"> Save changes</p>
+              </Button>
+            </div>
+            <DialogFooter></DialogFooter>
+          </DialogContent>
+        </Dialog>
+
         <div className="w-full"></div>
       </div>
     </div>

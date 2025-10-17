@@ -7,15 +7,19 @@ type FoodMenuCardProps = {
 export const FoodMenuCard = ({ food, refetchFoods }: FoodMenuCardProps) => {
   const { image, _id, price, ingredients, name } = food;
   return (
-    <div className="w-67.5 rounded-3xl border-1 bg-white p-4 ">
-      <div>
-        <img src={image} alt="" className="w-full h-full rounded-xl p-5" />
-        <div>
+    <div className="w-67.5 rounded-3xl border-1 bg-white p-4 flex flex-col gap-5">
+      <div className="relative">
+        <img src={image} alt="" className="w-full h-full rounded-xl " />
+        <div className="absolute bottom-5 right-5">
           <EditDishesDialog id={_id} refetchFoods={refetchFoods} />
         </div>
-        <p className="text-red-500 leading-5 font-medium text-sm">{name}</p>
-        <p>{price}$</p>
-        <p>{ingredients}</p>
+      </div>
+      <div className="flex flex-col gap-2">
+        <div className="flex justify-between leading-5 text-sm">
+          <p className="text-red-500  font-medium ">{name}</p>
+          <p>{price}$</p>
+        </div>
+        <p className="leading-4 font-normal text-xs">{ingredients}</p>
       </div>
     </div>
   );

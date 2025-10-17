@@ -34,8 +34,7 @@ const ProductsPage = () => {
         return (
           <div
             key={category._id}
-            className="p-5 mt-6 ml-6 mr-10  bg-background flex gap-4 "
-          >
+            className="p-5 mt-6 ml-6 mr-10  bg-background flex gap-4 ">
             <AddNewDish
               key={category._id}
               refetchFoods={getFoods}
@@ -46,7 +45,7 @@ const ProductsPage = () => {
               .filter((food) => food.categoryId._id == category._id)
               .map((food) => {
                 return (
-                  <div key={food._id}>
+                  <div key={food._id} className="flex flex-wrap">
                     <FoodMenuCard food={food} refetchFoods={getFoods} />
                   </div>
                 );

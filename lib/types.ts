@@ -1,12 +1,13 @@
-type foodsTypeProps = {
+type FoodType = {
   image: string;
   _id: string;
   price: number;
   ingredients: string;
-  category: string;
+  categoryId: CategoryType;
   name: string;
 };
-type categoriesTypeProps = {
+type CategoryType = {
   _id: string;
   name: string;
 };
+

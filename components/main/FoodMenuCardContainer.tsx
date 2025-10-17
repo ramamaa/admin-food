@@ -5,7 +5,7 @@ type FoodMenuCardProps = {
   _id: string;
   price: number;
   ingredients: string;
-  category: string;
+  categoryId: CategoryType;
   name: string;
 };
 

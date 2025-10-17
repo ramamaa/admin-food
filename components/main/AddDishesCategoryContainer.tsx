@@ -13,7 +13,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 
 export const AddDishesCategoryContainer = () => {
-  const [categories, setCategories] = useState<categoriesTypeProps[]>([]);
+  const [categories, setCategories] = useState<CategoryType[]>([]);
   const [newCategory, setNewCategory] = useState<string | undefined>();
   const [modalOpen, setModalOpen] = useState<boolean>(false);
 
@@ -65,16 +65,17 @@ export const AddDishesCategoryContainer = () => {
       <div className="flex flex-wrap gap-2">
         {categories.map((category) => (
           <Badge
-          
             variant="outline"
             className="flex items-center border-1 rounded-full px-4 py-2 h-9 w-fit gap-2 hover:border-red-500 "
-            key={category._id}>
+            key={category._id}
+          >
             <p className=" text-secondary-foreground leading-5 font-medium text-sm ">
               {category.name}
             </p>
             <button
               className="hover:bg-gray-400/20 w-4 bg-primary px-2.5 py-0.5 text-primary-foreground flex items-center justify-center rounded-full"
-              onClick={() => deleteCategoryHandler(category._id)}>
+              onClick={() => deleteCategoryHandler(category._id)}
+            >
               X
             </button>
           </Badge>
@@ -84,7 +85,8 @@ export const AddDishesCategoryContainer = () => {
             <Badge
               onClick={() => setModalOpen(true)}
               variant={"outline"}
-              className="cursor-pointer hover:bg-gray-500/20 text-white bg-red-500 rounded-full w-9 h-9">
+              className="cursor-pointer hover:bg-gray-500/20 text-white bg-red-500 rounded-full w-9 h-9"
+            >
               +
             </Badge>
           </DialogTrigger>

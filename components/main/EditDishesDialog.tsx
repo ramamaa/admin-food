@@ -20,30 +20,22 @@ import {
   SelectTrigger,
   SelectValue,
 } from "../ui/select";
-type EditDishesProps ={
-  id: string
-}
-export type CategoryType = {
-  name: string;
-  _id: string;
-};
-export type FoodMenuType = {
-   image: string;
-  _id: string;
-  price: number;
-  ingredients: string;
-  category: string;
-  name: string;
-}
-export const EditDishesDialog = ({id}:EditDishesProps) => {
+
+export const EditDishesDialog = ({
+  id,
+  refetchFoods,
+}: {
+  id: string;
+  refetchFoods: () => Promise<void>;
+}) => {
   const [image, setImage] = useState<File | undefined>();
   const [name, setName] = useState<string>("");
   const [price, setPrice] = useState<number>(0);
   const [ingredients, setIngredients] = useState<string>("");
   const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
   const [categories, setCategories] = useState<CategoryType[]>([]);
-  const [foodMenu, setFoodMenu] =useState<FoodMenuType[]>([])
- 
+  const [foodMenu, setFoodMenu] = useState<FoodType[]>([]);
+
   const getCategories = async () => {
     const response = await fetch("http://localhost:4000/api/categories");
     const data = await response.json();
@@ -54,20 +46,7 @@ export const EditDishesDialog = ({id}:EditDishesProps) => {
     getCategories();
   }, []);
 
-  const getFoodMenu = async () => {
-    const response = await fetch("http://localhost:4000/api/food");
-    const data = await response.json();
-    setFoodMenu(data.data);
-      console.log(data, "DATA of FOODMENU");
-  };
-
-  
-  useEffect(() => {
-    getFoodMenu();
-  }, []);
-
-
-  const editFoodHandler = async (id:string) => {
+  const editFoodHandler = async (id: string) => {
     if (!name || !price || !image || !ingredients || !selectedCategory) {
       alert("All fields are required");
       return;
@@ -95,14 +74,13 @@ export const EditDishesDialog = ({id}:EditDishesProps) => {
         setImage(undefined);
         setIngredients("");
         setSelectedCategory(null);
+        await refetchFoods();
       } else {
         alert(data.error || "Failed to create food");
       }
-       await getFoodMenu();
     } catch (error) {
       alert("Failed to create food");
     }
-   
   };
   const nameChangeHandler = (e: ChangeEvent<HTMLInputElement>) => {
     setName(e.target.value);
@@ -119,8 +97,6 @@ export const EditDishesDialog = ({id}:EditDishesProps) => {
     setIngredients(e.target.value);
   };
 
-
-
   const deleteFoodHandler = async (id: string) => {
     await fetch("http://localhost:4000/api/food", {
       method: "DELETE",
@@ -129,16 +105,13 @@ export const EditDishesDialog = ({id}:EditDishesProps) => {
       },
       body: JSON.stringify({ id }),
     });
-    await getFoodMenu();
+    await refetchFoods();
   };
-
 
   return (
     <div>
       <Dialog>
-        <DialogTrigger
-          className="rounded-full border-1 w-11 h-11 flex justify-center items-center"
-        >
+        <DialogTrigger className="rounded-full border-1 w-11 h-11 flex justify-center items-center">
           <Pen className="w-4 h-4" color="red" />
         </DialogTrigger>
         <DialogContent className="max-w-[472px] p-6 ">
@@ -212,7 +185,7 @@ export const EditDishesDialog = ({id}:EditDishesProps) => {
               type="submit"
               className="bg-white border-red-500 border-1 py-2 px-4"
               variant="outline"
-              onClick={() => deleteFoodHandler(id)} 
+              onClick={() => deleteFoodHandler(id)}
             >
               <Trash color="red" />
             </Button>

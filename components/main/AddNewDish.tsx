@@ -11,46 +11,24 @@ import {
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 
-import { ChangeEvent, useEffect, useState } from "react";
-import { FoodMenuCardContainer } from "./FoodMenuCardContainer";
-import { CategoryType } from "./EditDishesDialog";
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "../ui/select";
-export const AddNewDish = () => {
+import { ChangeEvent, useState } from "react";
+
+export const AddNewDish = ({
+  foods,
+  category,
+  refetchFoods,
+}: {
+  foods: FoodType[];
+  category: CategoryType;
+  refetchFoods: () => Promise<void>;
+}) => {
   const [image, setImage] = useState<File | undefined>();
   const [name, setName] = useState<string>("");
   const [price, setPrice] = useState<number>(0);
   const [ingredients, setIngredients] = useState<string>("");
-  const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
-  const [categories, setCategories] = useState<CategoryType[]>([]);
-  const [foodsMenu, setFoodsMenu] = useState<foodsTypeProps[]>([]);
-  const getCategories = async () => {
-    const response = await fetch("http://localhost:4000/api/categories");
-    const data = await response.json();
-    setCategories(data.data);
-  };
-
-  const getFoodMenu = async () => {
-    const result = await fetch("http://localhost:4000/api/food");
-    const responseData = await result.json();
-
-    const { data } = responseData;
-
-    setFoodsMenu(data);
-  };
-
-  useEffect(() => {
-    getCategories();
-    getFoodMenu();
-  }, []);
 
   const addFoodHandler = async () => {
-    if (!name || !price || !image || !ingredients || !selectedCategory) {
+    if (!name || !price || !image || !ingredients) {
       alert("All fields are required");
       return;
     }
@@ -61,7 +39,7 @@ export const AddNewDish = () => {
     form.append("price", String(price));
     form.append("image", image); // File object
     form.append("ingredients", ingredients);
-    form.append("categoryId", selectedCategory);
+    form.append("categoryId", category._id);
 
     try {
       const response = await fetch("http://localhost:4000/api/food", {
@@ -76,14 +54,13 @@ export const AddNewDish = () => {
         setPrice(0);
         setImage(undefined);
         setIngredients("");
-        setSelectedCategory(null);
+        await refetchFoods();
       } else {
         alert(data.error || "Failed to create food");
       }
     } catch (error) {
       alert("Failed to create food");
     }
-    await getFoodMenu();
   };
   const nameChangeHandler = (e: ChangeEvent<HTMLInputElement>) => {
     setName(e.target.value);
@@ -101,16 +78,10 @@ export const AddNewDish = () => {
   };
 
   return (
-    <div className="p-5 mt-6 ml-6 mr-10  bg-background flex gap-4 ">
-      {/* {foods
-        .filter((food: any) => food.category === "Appetizers")
-        .map((food: any) => (
-          <div key={food.category}>
-            <h3 className="font-semibold text-lg">
-              {food.category} {food.items.length}
-            </h3>
-          </div>
-        ))} */}
+    <div className="flex flex-col gap-4">
+      <h2 className="text-xl font-semibold leading-7">
+        {category.name} {foods.length}
+      </h2>
       <div className="flex gap-5">
         <div className="w-70 h-60 border-dashed border rounded-2xl border-red-500 flex items-center justify-center py-2 px-4">
           <div className="flex flex-col gap-6 justify-center items-center">
@@ -118,7 +89,8 @@ export const AddNewDish = () => {
               <DialogTrigger asChild>
                 <Button
                   variant="outline"
-                  className="rounded-full bg-red-500 text-white w-10 h-10">
+                  className="rounded-full bg-red-500 text-white w-10 h-10"
+                >
                   +
                 </Button>
               </DialogTrigger>
@@ -163,32 +135,13 @@ export const AddNewDish = () => {
                       onChange={ingredientsChangeHandler}
                     />
                   </div>
-                  <div className="grid gap-3">
-                    {categories.length > 0 && (
-                      <Select
-                        onValueChange={(value) => setSelectedCategory(value)}>
-                        <SelectTrigger className="w-[180px]">
-                          <SelectValue placeholder="Select Category" />
-                        </SelectTrigger>
-                        <SelectContent>
-                          {categories.map((category) => {
-                            return (
-                              <SelectItem
-                                key={category._id}
-                                value={category._id}>
-                                {category.name}
-                              </SelectItem>
-                            );
-                          })}
-                        </SelectContent>
-                      </Select>
-                    )}
-                  </div>
+
                   <Button
                     type="submit"
                     size={"sm"}
                     className="w-fit px-4 py-[10px]"
-                    onClick={addFoodHandler}>
+                    onClick={addFoodHandler}
+                  >
                     <p className="leading-5"> Save changes</p>
                   </Button>
                 </div>
@@ -196,13 +149,11 @@ export const AddNewDish = () => {
               </DialogContent>
             </Dialog>
             <div className="font-medium text-secondary-foreground text-sm leading-5">
-              Add new Dish to Appetizers
+              Add new Dish to {category.name}
             </div>
           </div>
         </div>
-        <div className="w-full">
-          <FoodMenuCardContainer foods={foodsMenu} />
-        </div>
+        <div className="w-full"></div>
       </div>
     </div>
   );

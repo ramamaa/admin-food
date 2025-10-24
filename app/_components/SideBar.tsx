@@ -1,4 +1,3 @@
-import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { LayoutDashboard, Truck } from "lucide-react";
 import Link from "next/link";
@@ -13,7 +12,8 @@ export const SideBar = () => {
             width="36"
             height="30"
             viewBox="0 0 36 30"
-            fill="none">
+            fill="none"
+          >
             <path
               fillRule="evenodd"
               clipRule="evenodd"
@@ -35,7 +35,8 @@ export const SideBar = () => {
         <Link href="/products">
           <Button
             variant="outline"
-            className="bg-primary w-[100%] text-primary-foreground px-6 rounded-full h-10 flex items-center justify-center gap-2.5 font-medium leading-5 text-sm">
+            className="bg-primary w-[100%] text-primary-foreground px-6 rounded-full h-10 flex items-center justify-center gap-2.5 font-medium leading-5 text-sm"
+          >
             <LayoutDashboard className="w-4 h-4" />
             Food menu
           </Button>
@@ -43,7 +44,8 @@ export const SideBar = () => {
         <Link href="orders">
           <Button
             variant="outline"
-            className="h-10 px-6 bg-background rounded-full flex gap-2.5 justify-start self-stretch w-[100%] ">
+            className="h-10 px-6 bg-background rounded-full flex gap-2.5 justify-start self-stretch w-[100%] "
+          >
             <Truck />
             Orders
           </Button>

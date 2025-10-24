@@ -34,8 +34,6 @@ export const EditDishesDialog = ({
   const [ingredients, setIngredients] = useState<string>("");
   const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
   const [categories, setCategories] = useState<CategoryType[]>([]);
-  const [foodMenu, setFoodMenu] = useState<FoodType[]>([]);
-
   const getCategories = async () => {
     const response = await fetch("http://localhost:4000/api/categories");
     const data = await response.json();
@@ -185,7 +183,8 @@ export const EditDishesDialog = ({
               type="submit"
               className="bg-white border-red-500 border-1 py-2 px-4"
               variant="outline"
-              onClick={() => deleteFoodHandler(id)}>
+              onClick={() => deleteFoodHandler(id)}
+            >
               <Trash color="red" />
             </Button>
 
